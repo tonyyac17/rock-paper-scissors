@@ -4,9 +4,14 @@ let playerScore = 0
 let computerScore = 0
 let roundWinner = ''
 
+const playerSelection = 'Rock';
+const computerSelection = getComputerChoice();
+
+
 function playGame (computerSelection, playerSelection){
-    if(computerSelection === playerSelection)
+    if(computerSelection === playerSelection){
     roundWinner = 'tie'
+    }
 }
     if(
     (computerSelection === 'Rock' && playerSelection === 'Scissors')||
@@ -33,10 +38,12 @@ function getComputerChoice() {
     let randomNumber = Math.floor(Math.random()*3);
     switch (randomNumber) {
         case 0:
-            return "Rock"
+            return 'Rock'
         case 1:
-            return "Paper"
+            return 'Paper'
         case 2:
-            return "Scissors"
+            return 'Scissors'
     }
 }
+
+console.log(playGame(computerSelection, playerSelection));
