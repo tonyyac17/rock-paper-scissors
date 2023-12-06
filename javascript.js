@@ -5,35 +5,39 @@ let computerScore = 0
 let roundWinner = ''
 
 const playerSelection = 'Rock';
-const computerSelection = getComputerChoice();
-console.log(playGame(computerSelection, playerSelection));
+let computerSelection = getComputerChoice();
+console.log(playGame());
 
-
-function playGame (computerSelection, playerSelection){
-    if(computerSelection === playerSelection){
-    roundWinner = 'tie'
+function playGame () {
+    while (!(playerScore === 5 || computerScore === 5)) {
+        computerSelection = getComputerChoice();
+        playRound(computerSelection, playerSelection);
     }
+    console.log('Computer score: ' + computerScore + '. Player score: '+ playerScore)
+}
 
-    if(
-    (computerSelection === 'Rock' && playerSelection === 'Scissors')||
-    (computerSelection === 'Scissors' && playerSelection === 'Paper')||
-    (computerSelection === 'Paper' && playerSelection === 'Rock')
-    ){
-        computerScore++
-        roundWinner = 'You lose. ' + computerSelection + ' beats ' + playerSelection
-    }
-
-
-    if(
-    (playerSelection === 'Rock' && computerSelection === 'Scissors')||
-    (playerSelection === 'Paper' && computerSelection === 'Rock')||
-    (playerSelection === 'Scissors' && computerSelection === 'Paper') 
-    ){
+function playRound (computerSelection, playerSelection){
+    result = determineResult(playerSelection, computerSelection)
+    if (result === 'win'){
         playerScore++
-        roundWinner = 'You win this round! ' + playerSelection + ' beats ' + computerSelection
+    }else if (result === 'loss'){
+        computerScore++
     }
-        document.getElementById('roundWinner').innerHTML = roundWinner
-        return
+    return 'It is your ' + result + '.'
+}
+
+function determineResult(playerSelection, computerSelection){
+    if(computerSelection === playerSelection){
+        return 'tie'
+    } else if (
+        (computerSelection === 'Rock' && playerSelection === 'Scissors')||
+        (computerSelection === 'Scissors' && playerSelection === 'Paper')||
+        (computerSelection === 'Paper' && playerSelection === 'Rock'))
+    {
+        return 'loss'
+    } else{
+        return 'win'
+    }
 }
 
 
@@ -44,13 +48,10 @@ function getComputerChoice() {
     switch (randomNumber) {
         case 0:
             return 'Rock'
-            break;
         case 1:
             return 'Paper'
-            break;
         case 2:
             return 'Scissors'
-            break;
     }
 }
 
